@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">NotePad</string>
+    <string name="app_name">Multi Notes</string>
+    <string name="file_name">Notes.json</string>
 </resources>
