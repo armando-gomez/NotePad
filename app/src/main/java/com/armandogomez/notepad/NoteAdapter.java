@@ -6,12 +6,9 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.Date;
 import java.util.List;
 
 public class NoteAdapter extends RecyclerView.Adapter<ViewHolder> {
-	private static final String TAG = "NoteAdapter";
 	private List<Note> noteList;
 	private MainActivity mainAct;
 
@@ -25,9 +22,8 @@ public class NoteAdapter extends RecyclerView.Adapter<ViewHolder> {
 	public ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, int viewType) {
 		View itemView = LayoutInflater.from(parent.getContext())
 				.inflate(R.layout.note_list_row, parent, false);
-		itemView.setOnClickListener((View.OnClickListener) mainAct);
-		itemView.setOnLongClickListener((View.OnLongClickListener) mainAct);
-
+		itemView.setOnClickListener(mainAct);
+		itemView.setOnLongClickListener(mainAct);
 		return new ViewHolder(itemView);
 	}
 
@@ -35,8 +31,12 @@ public class NoteAdapter extends RecyclerView.Adapter<ViewHolder> {
 	public void onBindViewHolder(@NonNull ViewHolder holder, int pos) {
 		Note note = noteList.get(pos);
 		holder.title.setText(note.getTitle());
-		holder.body.setText(note.getBody());
-		holder.date.setText(new Date().toString());
+		String body = note.getBody();
+		if(body.length() > 80) {
+			body = body.substring(0,81) + "...";
+		}
+		holder.body.setText(body);
+		holder.date.setText(note.getDate());
 	}
 
 	@Override
